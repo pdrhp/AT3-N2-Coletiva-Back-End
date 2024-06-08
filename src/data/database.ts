@@ -1,18 +1,19 @@
-import sqlite3, { Database } from 'sqlite3';
-import { open } from 'sqlite3';
+import sqlite3 from 'sqlite3';
 import { scripts } from './databaseScripts';
 
+export const db = new sqlite3.Database('./src/data/database.db');
 
+export const initDatabase = () => {
+    db.serialize(() => {
+        db.run(scripts.livros, (err) => {
+            if (err) {
+                console.log('Erro ao criar tabela Livros', err.message);
+            }
+        });
 
-sqlite3.verbose();
-export async function initDatabase(): Promise<Database> {
-    const db = open({
-        filename: "./src/data/database.db",
-        driver: sqlite3.Database
+        db.close();
     });
-
-    await db.exec(scripts.livros);
-
-    return db;
 }
+
+
 
