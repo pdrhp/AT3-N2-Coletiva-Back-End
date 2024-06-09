@@ -5,7 +5,7 @@ sqlite3.verbose();
 
 
 const openConnection = () => {
-    return new sqlite3.Database("database.db");
+    return new sqlite3.Database("src/data/livraria.db");
 }
 
 export const initDatabase = () => {
