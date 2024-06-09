@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import { initDatabase } from './data/database';
 
 
@@ -6,8 +6,6 @@ const app: Express = express();
 const port = 5000;
 
 app.use(express.json());
-
-
 
 
 app.listen(port, () => {
