@@ -5,13 +5,26 @@ import LivroRepository from "../repository/LivroRepository";
 
 const livroRepository = new LivroRepository();
 
-export const getLivros = async (): Promise<Response<Livro[]>> => {
-    const livros: Livro[] = await livroRepository.getAll();
+export const getLivros = async (titulo?: string): Promise<Response<Livro[]>> => {
+
+    let livros: Livro[] = [];
+
+    if(titulo){
+        console.log('caiu dentro do if')
+        livros = await livroRepository.getByName(titulo);
+        if(livros.length === 0){
+            return new Response(404, "Nenhum livro encontrado");
+        }
+        return new Response(200, "Livros encontrados", livros);
+    }
+
+    livros = await livroRepository.getAll();
     if(livros.length === 0){
         return new Response(404, "Nenhum livro encontrado");
     }
     return new Response(200, "Livros encontrados", livros);
 }
+
 
 export const addLivro = async (livro: Livro): Promise<Response<Livro>> => {
     const result = await livroRepository.create(livro);

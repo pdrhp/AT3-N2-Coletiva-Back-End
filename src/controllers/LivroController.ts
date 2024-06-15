@@ -7,7 +7,10 @@ import { addLivro, addLivroToStock, buyLivro, deleteLivro, getLivros, updateLivr
 const LivroController = express.Router();
 
 LivroController.get('/', async (req, res) => {
-    const getLivrosResponse = await getLivros();
+
+    const { titulo } = req.query;
+
+    const getLivrosResponse = await getLivros(titulo as string);
     res.status(getLivrosResponse.status_code).json(getLivrosResponse);
 });
 
