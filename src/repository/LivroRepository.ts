@@ -5,23 +5,27 @@ import Livro from "../models/Livro";
 
 class LivroRepository implements IRepository<Livro> {
     getAll = async () => {
-        const results: Livro[] = await getAllQuery(`SELECT * FROM Livros`);
+        const results: Livro[] = await getAllQuery(`SELECT id, titulo, autor, genero, quantidade FROM Livros`);
         return results;
     }
 
-    getByName = async (titulo: string) => {
-        const result: Livro = await getQuery(`SELECT * FROM Livros WHERE titulo = '${titulo}'`)
+    getById = async (id: number) => {
+        const result: Livro = await getQuery(`SELECT id, titulo, autor, genero, quantidade FROM Livros WHERE id = ${id}`)
         return result;
     }
 
-    getById = async (id: number) => {
-        const result: Livro = await getQuery(`SELECT * FROM Livros WHERE id = ${id}`)
+    getByName = async (titulo: string) => {
+        titulo = titulo.toLowerCase();
+        const result: Livro = await getQuery(`SELECT id, titulo, autor, genero, quantidade FROM Livros WHERE titulo_normalized LIKE '${titulo}'`)
         return result;
     }
 
     create = async (livro: Livro) => {
-        const query = `INSERT INTO Livros (titulo, autor, genero, quantidade) VALUES (?, ?, ?, ?)`
-        const parameters = [livro.titulo, livro.autor, livro.genero, livro.quantidade]
+
+        const normalized_titulo = livro.titulo.toLowerCase();
+
+        const query = `INSERT INTO Livros (titulo, normalized_titulo, autor, genero, quantidade) VALUES (?, ?, ?, ?, ?)`
+        const parameters = [livro.titulo, normalized_titulo, livro.autor, livro.genero, livro.quantidade]
         const result = await execQuery(query, parameters);
         return result;
     }
