@@ -5,7 +5,7 @@ import LivroRepository from "../repository/LivroRepository";
 
 const livroRepository = new LivroRepository();
 
-const getLivros = async (): Promise<Response<Livro[]>> => {
+export const getLivros = async (): Promise<Response<Livro[]>> => {
     const livros: Livro[] = await livroRepository.getAll();
     if(livros.length === 0){
         return new Response(404, "Nenhum livro encontrado");
