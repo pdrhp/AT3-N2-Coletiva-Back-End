@@ -2,7 +2,7 @@ import express from 'express';
 import MutateLivroDto from '../DTOs/MutateLivroDto';
 import validateBody from '../middlewares/ValidateBodyMiddleware';
 import Livro from '../models/Livro';
-import { addLivro, buyLivro, deleteLivro, getLivros, updateLivro } from '../service/LivroService';
+import { addLivro, addLivroToStock, buyLivro, deleteLivro, getLivros, updateLivro } from '../service/LivroService';
 
 const LivroController = express.Router();
 
@@ -36,7 +36,11 @@ LivroController.put('/buy/:id', async (req, res) => {
     res.status(buyResponse.status_code).json(buyResponse);
 })
 
-
+LivroController.put('/add/:id', async (req, res) => {
+    const { id } = req.params;
+    const addResponse = await addLivroToStock(id);
+    res.status(addResponse.status_code).json(addResponse);
+})
 
 export default LivroController;
 
