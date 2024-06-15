@@ -2,7 +2,7 @@ import express from 'express';
 import MutateLivroDto from '../DTOs/MutateLivroDto';
 import validateBody from '../middlewares/ValidateBodyMiddleware';
 import Livro from '../models/Livro';
-import { addLivro, getLivros, updateLivro } from '../service/LivroService';
+import { addLivro, deleteLivro, getLivros, updateLivro } from '../service/LivroService';
 
 
 
@@ -27,12 +27,15 @@ LivroController.put('/:id', validateBody(MutateLivroDto) ,async (req, res) => {
     res.status(updateResponse.status_code).json(updateResponse);
 })
 
-LivroController.delete('/:id', (req, res) => {
-    
+LivroController.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    const deleteResponse = await deleteLivro(id);
+
+    res.status(deleteResponse.status_code).json(deleteResponse);
 })
 
 LivroController.put('/buy/:id', (req, res) => {
-
+    
 })
 
 LivroController.put('/add/:id', (req, res) => {
