@@ -51,11 +51,11 @@ export const runGetQuery = (query: string): Promise<any> => {
   });
 };
 
-export const insertQuery = (query: string): Promise<any> => {
+export const insertQuery = (query: string, parameters: (string | number)[]): Promise<any> => {
   const db = openConnection();
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-        db.run(query, function (err) {
+        db.run(query, parameters, function (err) {
             if (err) {
               reject(err);
             }
