@@ -29,4 +29,14 @@ export const updateLivro = async (id: string, livro: Livro): Promise<Response<Li
     return new Response(200, "Livro atualizado com sucesso", livroAtualizado);
 }
 
+export const deleteLivro = async (id: string): Promise<Response<unknown>> => {
+    if(!livroRepository.getById(parseInt(id))){
+        return new Response(404, "Livro não encontrado");
+    }
+
+    const result = await livroRepository.delete(id);
+
+    return new Response(200, "Livro deletado com sucesso");
+}
+
 
