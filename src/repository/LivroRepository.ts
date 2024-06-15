@@ -28,9 +28,7 @@ class LivroRepository implements IRepository<Livro> {
 
     update(id: string, item: Livro): Promise<Livro> {
         const query = `UPDATE LIVROS SET titulo = ?, autor = ?, genero = ?, quantidade = ? WHERE id = ?`
-
         const parameters = [item.titulo, item.autor, item.genero, item.quantidade, parseInt(id)]
-        console.log(parameters)
         return execQuery(query, parameters);
     }
 
