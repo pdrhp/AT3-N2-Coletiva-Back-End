@@ -53,4 +53,15 @@ export const buyLivro = async (id: string): Promise<Response<Livro>> => {
     return new Response(200, "Livro comprado com sucesso", livroAtualizado);
 }
 
+export const addLivroToStock = async (id: string): Promise<Response<Livro>> => {
+    const livro: Livro = await livroRepository.getById(parseInt(id));
+    if(!livro){
+        return new Response(404, "Livro não encontrado");
+    }
+    livro.quantidade++;
+    const result = await livroRepository.update(id, livro);
+    const livroAtualizado: Livro = await livroRepository.getById(parseInt(id));
+
+    return new Response(200, "Livro adicionado ao estoque com sucesso", livroAtualizado);
+}
 
