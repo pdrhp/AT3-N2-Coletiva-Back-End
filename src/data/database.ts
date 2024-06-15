@@ -16,12 +16,12 @@ export const initDatabase = () => {
   });
 };
 
-export const getAllQuery = (query: string): Promise<any> => {
+export const getAllQuery = (query: string, parameters?: (string | number)[]): Promise<any> => {
   const db = openConnection();
 
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.all(query, (err, rows) => {
+      db.all(query, parameters, (err, rows) => {
         if (err) {
           reject(err);
         }
@@ -33,12 +33,12 @@ export const getAllQuery = (query: string): Promise<any> => {
   });
 };
 
-export const getQuery = (query: string): Promise<any> => {
+export const getQuery = (query: string, parameters?: (string | number)[]): Promise<any> => {
   const db = openConnection();
 
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.get(query, (err, row) => {
+      db.get(query, parameters, (err, row) => {
         if (err) {
           reject(err);
         }
