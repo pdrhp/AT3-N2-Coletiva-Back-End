@@ -35,7 +35,9 @@ class LivroRepository implements IRepository<Livro> {
     }
 
     delete(id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+        const query = `DELETE FROM Livros WHERE id = ?`
+        const parameters = [parseInt(id)]
+        return execQuery(query, parameters);
     }
 }
 
