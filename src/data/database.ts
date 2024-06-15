@@ -16,7 +16,7 @@ export const initDatabase = () => {
   });
 };
 
-export const runGetAllQuery = (query: string): Promise<any> => {
+export const getAllQuery = (query: string): Promise<any> => {
   const db = openConnection();
 
   return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ export const runGetAllQuery = (query: string): Promise<any> => {
   });
 };
 
-export const runGetQuery = (query: string): Promise<any> => {
+export const getQuery = (query: string): Promise<any> => {
   const db = openConnection();
 
   return new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ export const runGetQuery = (query: string): Promise<any> => {
   });
 };
 
-export const insertQuery = (query: string, parameters: (string | number)[]): Promise<any> => {
+export const execQuery = (query: string, parameters: (string | number)[]): Promise<any> => {
   const db = openConnection();
   return new Promise((resolve, reject) => {
     db.serialize(() => {
