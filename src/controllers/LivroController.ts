@@ -2,15 +2,16 @@ import express from 'express';
 import MutateLivroDto from '../DTOs/MutateLivroDto';
 import validateBody from '../middlewares/ValidateBodyMiddleware';
 import Livro from '../models/Livro';
-import { addLivro, updateLivro } from '../service/LivroService';
+import { addLivro, getLivros, updateLivro } from '../service/LivroService';
 
 
 
 const LivroController = express.Router();
 
 
-LivroController.get('/', (req, res) => {
-    res.send('Hello World');
+LivroController.get('/', async (req, res) => {
+    const getLivrosResponse = await getLivros();
+    res.status(getLivrosResponse.status_code).json(getLivrosResponse);
 });
 
 LivroController.post('/', validateBody(MutateLivroDto) , async (req, res) => {
@@ -27,7 +28,7 @@ LivroController.put('/:id', validateBody(MutateLivroDto) ,async (req, res) => {
 })
 
 LivroController.delete('/:id', (req, res) => {
-
+    
 })
 
 LivroController.put('/buy/:id', (req, res) => {
