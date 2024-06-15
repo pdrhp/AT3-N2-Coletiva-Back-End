@@ -35,8 +35,22 @@ export const deleteLivro = async (id: string): Promise<Response<unknown>> => {
     }
 
     const result = await livroRepository.delete(id);
-
     return new Response(200, "Livro deletado com sucesso");
+}
+
+export const buyLivro = async (id: string): Promise<Response<Livro>> => {
+    const livro: Livro = await livroRepository.getById(parseInt(id));
+    if(!livro){
+        return new Response(404, "Livro não encontrado");
+    }
+    if(livro.quantidade === 0){
+        return new Response(400, "Livro sem estoque");
+    }
+    livro.quantidade--;
+    const result = await livroRepository.update(id, livro);
+    const livroAtualizado: Livro = await livroRepository.getById(parseInt(id));
+
+    return new Response(200, "Livro comprado com sucesso", livroAtualizado);
 }
 
 

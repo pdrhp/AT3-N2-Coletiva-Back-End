@@ -1,4 +1,3 @@
-
 class Response<T>{
     status_code: number;
     message: string;

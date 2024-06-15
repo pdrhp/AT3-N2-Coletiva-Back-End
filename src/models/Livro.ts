@@ -3,7 +3,7 @@ interface Livro {
     titulo: string;
     autor: string;
     genero: string;
-    quantidade: string;
+    quantidade: number;
 }
 
 
