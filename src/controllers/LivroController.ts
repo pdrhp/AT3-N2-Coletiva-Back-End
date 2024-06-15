@@ -30,13 +30,13 @@ LivroController.delete('/:id', async (req, res) => {
     res.status(deleteResponse.status_code).json(deleteResponse);
 })
 
-LivroController.put('/buy/:id', async (req, res) => {
+LivroController.post('/buy/:id', async (req, res) => {
     const { id } = req.params;
     const buyResponse = await buyLivro(id);
     res.status(buyResponse.status_code).json(buyResponse);
 })
 
-LivroController.put('/add/:id', async (req, res) => {
+LivroController.post('/add/:id', async (req, res) => {
     const { id } = req.params;
     const addResponse = await addLivroToStock(id);
     res.status(addResponse.status_code).json(addResponse);
