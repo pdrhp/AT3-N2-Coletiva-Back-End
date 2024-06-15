@@ -19,4 +19,14 @@ export const addLivro = async (livro: Livro): Promise<Response<Livro>> => {
     return new Response(201, "Livro adicionado com sucesso", livroCriado);
 }
 
+export const updateLivro = async (id: string, livro: Livro): Promise<Response<Livro>> => {
+    if(!await livroRepository.getById(parseInt(id))){
+        return new Response(404, "Livro não encontrado");
+    }
+
+    const result = await livroRepository.update(id, livro);
+    const livroAtualizado: Livro = await livroRepository.getById(parseInt(id));
+    return new Response(200, "Livro atualizado com sucesso", livroAtualizado);
+}
+
 
