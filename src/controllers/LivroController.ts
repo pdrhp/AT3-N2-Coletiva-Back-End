@@ -1,8 +1,8 @@
 import express from 'express';
-import CreateLivroDto from '../DTOs/CreateLivroDto';
+import MutateLivroDto from '../DTOs/MutateLivroDto';
 import validateBody from '../middlewares/ValidateBodyMiddleware';
 import Livro from '../models/Livro';
-import { addLivro } from '../service/LivroService';
+import { addLivro, updateLivro } from '../service/LivroService';
 
 
 
@@ -13,16 +13,17 @@ LivroController.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-LivroController.post('/', validateBody(CreateLivroDto) , async (req, res) => {
+LivroController.post('/', validateBody(MutateLivroDto) , async (req, res) => {
     const livro: Livro = req.body;
-
     const createResponse = await addLivro(livro);
-    
     res.status(createResponse.status_code).json(createResponse);
 })
 
-LivroController.put('/:id', (req, res) => {
-
+LivroController.put('/:id', validateBody(MutateLivroDto) ,async (req, res) => {
+    const { id } = req.params;
+    const livro: Livro = req.body;
+    const updateResponse = await updateLivro(id, livro);
+    res.status(updateResponse.status_code).json(updateResponse);
 })
 
 LivroController.delete('/:id', (req, res) => {
