@@ -20,7 +20,7 @@ export const getLivros = async (titulo?: string): Promise<Response<Livro[]>> => 
 
     livros = await livroRepository.getAll();
     if(livros.length === 0){
-        return new Response(404, "Nenhum livro encontrado");
+        return new Response(200, "Nenhum livro encontrado");
     }
     return new Response(200, "Livros encontrados", livros);
 }
