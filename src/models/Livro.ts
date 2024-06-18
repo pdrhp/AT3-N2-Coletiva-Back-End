@@ -3,6 +3,7 @@ interface Livro {
     titulo: string;
     autor: string;
     genero: string;
+    capa: string;
     quantidade: number;
 }
 
