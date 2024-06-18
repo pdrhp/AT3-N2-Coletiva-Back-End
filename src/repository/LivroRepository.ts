@@ -22,8 +22,8 @@ class LivroRepository implements IRepository<Livro> {
 
     create = async (livro: Livro) => {
         const normalized_titulo = livro.titulo.toLowerCase();
-        const query = `INSERT INTO Livros (titulo, normalized_titulo, capa, autor, capa, genero, quantidade) VALUES (?, ?, ?, ?, ?)`
-        const parameters = [livro.titulo, normalized_titulo, livro.autor, livro.capa, livro.genero, livro.quantidade]
+        const query = `INSERT INTO Livros (titulo, normalized_titulo, capa, autor, genero, quantidade) VALUES (?, ?, ?, ?, ?, ?)`
+        const parameters = [livro.titulo, normalized_titulo, livro.capa, livro.autor, livro.genero, livro.quantidade]
         const result = await execQuery(query, parameters);
         return result;
     }
